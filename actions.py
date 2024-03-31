@@ -7,12 +7,12 @@ battle = {
 }
 
 mana = {
-  "trigger": lambda p=80: isManaBelow(p),
+  "trigger": lambda p=60: isManaBelow(p),
   "action": lambda keys="F9": press(keys)
 }
 
 heal = {
-  "trigger": lambda p=90: isLifeBelow(p),
+  "trigger": lambda p=95: isLifeBelow(p),
   "action": lambda keys="F10": press(keys)
 }
 
