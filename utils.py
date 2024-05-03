@@ -1,60 +1,60 @@
-import math
+# import math
 
-import pyautogui
+# import pyautogui
 
-from coordinates import (BATTLE_X, BATTLE_Y_OFFSET, BATTLE_Y_START, LIFE_Y,
-                         MANA_Y, STATUS_BARS_PIXELS, STATUS_BARS_START)
+# from coordinates import (BATTLE_X, BATTLE_Y_OFFSET, BATTLE_Y_START, LIFE_Y,
+#                          MANA_Y, STATUS_BARS_PIXELS, STATUS_BARS_START)
 
-PIXEL_ERROR_TOLERANCE = 0.1
+# PIXEL_ERROR_TOLERANCE = 0.1
 
-def isWithinValue(actual, expected, tolerance=PIXEL_ERROR_TOLERANCE):
-  bottomLimit = expected - expected * tolerance
-  upperLimit = expected + expected * tolerance
+# def isWithinValue(actual, expected, tolerance=PIXEL_ERROR_TOLERANCE):
+#   bottomLimit = expected - expected * tolerance
+#   upperLimit = expected + expected * tolerance
 
-  if actual >= bottomLimit and actual <= upperLimit:
-    return True
+#   if actual >= bottomLimit and actual <= upperLimit:
+#     return True
 
-  return False
+#   return False
 
-def hasTarget():
-  ss = pyautogui.screenshot()
-  height = ss.height
-  width = ss.width
+# def hasTarget():
+#   ss = pyautogui.screenshot()
+#   height = ss.height
+#   width = ss.width
 
-  yStart = BATTLE_Y_START
+#   yStart = BATTLE_Y_START
 
-  while yStart < height:
-    pixelY = yStart
-    pixel_color = ss.getpixel((BATTLE_X, pixelY))
+#   while yStart < height:
+#     pixelY = yStart
+#     pixel_color = ss.getpixel((BATTLE_X, pixelY))
 
-    if pixel_color == (255, 0 ,0) or pixel_color == (255, 128, 128):
-      return True
+#     if pixel_color == (255, 0 ,0) or pixel_color == (255, 128, 128):
+#       return True
 
-    yStart += BATTLE_Y_OFFSET
+#     yStart += BATTLE_Y_OFFSET
 
-  return False
+#   return False
 
-def isStatusBarBelow(percentage, y, ss=None):
-  if ss == None:
-    ss = pyautogui.screenshot()
+# def isStatusBarBelow(percentage, y, ss=None):
+#   if ss == None:
+#     ss = pyautogui.screenshot()
 
-  if percentage > 1:
-    percentage /= 100
+#   if percentage > 1:
+#     percentage /= 100
 
-  pixelToCheck = STATUS_BARS_START + math.floor(STATUS_BARS_PIXELS * percentage)
+#   pixelToCheck = STATUS_BARS_START + math.floor(STATUS_BARS_PIXELS * percentage)
 
-  r, g, b = ss.getpixel((pixelToCheck, y))
-  er, eg, eb = (69, 82, 109)
+#   r, g, b = ss.getpixel((pixelToCheck, y))
+#   er, eg, eb = (69, 82, 109)
 
-  if isWithinValue(r, er) and isWithinValue(g, eg) and isWithinValue(b, eb):
-    return True
+#   if isWithinValue(r, er) and isWithinValue(g, eg) and isWithinValue(b, eb):
+#     return True
 
-  return False
+#   return False
 
-def isManaBelow(percentage, ss=None):
-  # print(f"Checking for mana below {percentage}")
-  return isStatusBarBelow(percentage, MANA_Y, ss)
+# def isManaBelow(percentage, ss=None):
+#   # print(f"Checking for mana below {percentage}")
+#   return isStatusBarBelow(percentage, MANA_Y, ss)
 
-def isLifeBelow(percentage, ss=None):
-  # print(f"Checking for life below {percentage}")
-  return isStatusBarBelow(percentage, LIFE_Y, ss)
+# def isLifeBelow(percentage, ss=None):
+#   # print(f"Checking for life below {percentage}")
+#   return isStatusBarBelow(percentage, LIFE_Y, ss)
